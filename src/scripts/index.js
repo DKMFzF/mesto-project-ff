@@ -1,4 +1,7 @@
-const addCardButton = document.querySelector('.profile__add-button');
+import initialCards from './cards' // испорт bd карточек
+import '../pages/index.css'; // испорт всех стилей
+
+// const addCardButton = document.querySelector('.profile__add-button');
 const placesList = document.querySelector('.places__list');
 
 // The function of uploading a card to a page
