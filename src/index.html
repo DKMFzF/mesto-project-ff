@@ -38,11 +38,13 @@
       <footer class="footer page__section">
         <p class="footer__copyright">© 2021 Mesto Russia</p>
       </footer>
-      <div class="popup popup_type_edit">
+
+      <!-- редактирование профиля -->
+      <div class="popup popup_type_edit popup_is-animated">
         <div class="popup__content">
           <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
-          <form class="popup__form" name="edit-profile">
+          <form class="popup__form" name="editProfile">
             <input
               type="text"
               name="name"
@@ -63,11 +65,13 @@
           </form>
         </div>
       </div>
-      <div class="popup popup_type_new-card">
+
+      <!-- создание новой карточки -->
+      <div class="popup popup_type_new-card popup_is-animated">
         <div class="popup__content">
           <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Новое место</h3>
-          <form class="popup__form" name="new-place">
+          <form class="popup__form" name="newPlace">
             <input
               type="text"
               name="place-name"
@@ -88,7 +92,9 @@
           </form>
         </div>
       </div>
-      <div class="popup popup_type_image">
+
+      <!-- просмотр картинки -->
+      <div class="popup popup_type_image popup_is-animated">
         <div class="popup__content popup__content_content_image">
           <button type="button" class="popup__close"></button>
           <img src="" alt="" class="popup__image" />
@@ -96,10 +102,6 @@
         </div>
       </div>
     </div>
-
-    <!-- нужно убрать подключение файлов -->
-    <!-- <script src="./scripts/cards.js"></script>
-<script src="./scripts/index.js" defer></script> -->
 
     <template id="card-template">
       <li class="places__item card">

@@ -1,37 +1,54 @@
-import initialCards from './cards' // испорт bd карточек
-import '../pages/index.css'; // испорт всех стилей
+import initialCards from "./cards";
+import { createCard, handleLikeButtonClick } from "../components/card";
+import {
+  handleAddAttributesToImagePopup,
+  openPopup,
+  closePoputs,
+  handleFormProfileSubmit,
+  handleFormNewCardSubmit,
+  placesList,
+  popupEdit,
+  formEditProfile,
+  formAddNewCard,
+} from "../components/modal";
+import "../pages/index.css";
 
-// const addCardButton = document.querySelector('.profile__add-button');
-const placesList = document.querySelector('.places__list');
-
-// The function of uploading a card to a page
-
-function createCard(nameCard, imgSrc) {
-    const cardTemplate = document.querySelector('#card-template').content;
-    const cardElement = cardTemplate.querySelector('.places__item.card').cloneNode(true);
-    const cardImg = cardElement.querySelector('.card__image');
-
-    cardImg.src = imgSrc;
-    cardImg.alt = nameCard;
-    
-    cardElement.querySelector('.card__delete-button').addEventListener('click', () => { 
-        deleteCard(cardElement)
-    });
-
-    cardElement.querySelector('.card__title').textContent = nameCard;
-
-    return cardElement;
-}
-
-// Card deletion function
-
-function deleteCard(cardElement) {
-    cardElement.remove();
-}
+// global element
+const overlay = document.querySelector(".page__content");
+const btnEdit = document.querySelector(".profile__edit-button");
+const btnNewCard = document.querySelector(".profile__add-button");
+const btnsClosePoput = document.querySelectorAll(".popup__close");
+const popupNewCard = document.querySelector(".popup_type_new-card");
 
 // Adding cards to the page
-
 initialCards.forEach((item) => {
-    const cardElement = createCard(item.name, item.link);
-    placesList.append(cardElement);
+  const cardElement = createCard(
+    item.name,
+    item.link,
+    handleLikeButtonClick,
+    handleAddAttributesToImagePopup
+  );
+  placesList.append(cardElement);
 });
+
+// open poput type edit profile
+btnEdit.addEventListener("click", () => openPopup(popupEdit));
+
+// open poput add new card
+btnNewCard.addEventListener("click", () => openPopup(popupNewCard));
+
+// close poput
+btnsClosePoput.forEach((item) => {
+  item.addEventListener("click", closePoputs);
+});
+
+// close poput by click on overlay
+overlay.addEventListener("click", (evt) => {
+  if (evt.target.classList.contains("popup")) {
+    closePoputs();
+  }
+});
+
+// send forms
+formEditProfile.addEventListener("submit", handleFormProfileSubmit);
+formAddNewCard.addEventListener("submit", handleFormNewCardSubmit);
