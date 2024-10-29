@@ -1,5 +1,13 @@
 // The function of uploading a card to a page
-function createCard(nameCard, imgSrc, handleLike, handleImgPopup) {
+function createCard(
+  nameCard,
+  imgSrc,
+  handleLike,
+  handleAddAttributesToImagePopup,
+  popupImage,
+  popupImageElement,
+  popupCaption
+) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate
     .querySelector(".places__item.card")
@@ -20,7 +28,15 @@ function createCard(nameCard, imgSrc, handleLike, handleImgPopup) {
   likeButton.addEventListener("click", handleLike);
 
   // open poput click by card img
-  cardImg.addEventListener("click", () => handleImgPopup(cardImg, cardTitle));
+  cardImg.addEventListener("click", () =>
+    handleAddAttributesToImagePopup(
+      popupImage,
+      popupImageElement,
+      popupCaption,
+      cardImg,
+      cardTitle
+    )
+  );
 
   return cardElement;
 }
