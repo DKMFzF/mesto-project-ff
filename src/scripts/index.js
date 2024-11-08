@@ -25,18 +25,21 @@ const jobInput = formEditProfile.querySelector(".popup__input_type_description")
 const titleNewCard = formAddNewCard.querySelector(".popup__input_type_card-name");
 const linkNewCard = formAddNewCard.querySelector(".popup__input_type_url");
 
+// Named handler for opening the image popup
+function handleCardImageClick(cardImg, cardTitle) {
+  popupImageElement.src = cardImg.src;
+  popupImageElement.alt = cardImg.alt;
+  popupCaption.textContent = cardTitle.textContent;
+  openPopup(popupImage);
+}
+
 // Adding cards to a page
 initialCards.forEach((item) => {
   const cardElement = createCard(
     item.name,
     item.link,
     handleLikeButtonClick,
-    (cardImg, cardTitle) => {
-      popupImageElement.src = cardImg.src;
-      popupImageElement.alt = cardImg.alt;
-      popupCaption.textContent = cardTitle.textContent;
-      openPopup(popupImage);
-    }
+    handleCardImageClick
   );
   placesList.append(cardElement);
 });
@@ -79,12 +82,7 @@ formAddNewCard.addEventListener("submit", (evt) => {
     titleNewCard.value,
     linkNewCard.value,
     handleLikeButtonClick,
-    (cardImg, cardTitle) => {
-      popupImageElement.src = cardImg.src;
-      popupImageElement.alt = cardImg.alt;
-      popupCaption.textContent = cardTitle.textContent;
-      openPopup(popupImage);
-    }
+    handleCardImageClick 
   );
   placesList.prepend(newCardElement);
   formAddNewCard.reset();
