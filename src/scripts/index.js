@@ -1,5 +1,5 @@
 import initialCards from "./cards";
-import { createCard, handleLikeButtonClick, handleCardImageClick } from "../components/card.js";
+import { createCard, handleLikeButtonClick } from "../components/card.js";
 import {
   openPopup,
   closePopup,
@@ -25,17 +25,12 @@ const jobInput = formEditProfile.querySelector(".popup__input_type_description")
 const titleNewCard = formAddNewCard.querySelector(".popup__input_type_card-name");
 const linkNewCard = formAddNewCard.querySelector(".popup__input_type_url");
 
-/**
- * Кароче
- * Эта функция действует как мост между логикой отображения на страницу самой карточки
- * и логикой работы с карточками в файле card.js 
- * Она передаёт в card.js функцию, 
- * которая не зависит от "конкретных" DOM-элементов
- * Благодаря этому card.js ничего не знает о DOM-структуре попапов
- * и как я думаю сохраняет модульный подход
- */
-function handleImageClickWrapper(cardImg, cardTitle) {
-  handleCardImageClick(cardImg, cardTitle, popupImageElement, popupCaption, popupImage, openPopup);
+// img-cards-popup
+function handleCardImageClick(cardImg, cardTitle) {
+  popupImageElement.src = cardImg.src;
+  popupImageElement.alt = cardImg.alt;
+  popupCaption.textContent = cardTitle.textContent;
+  openPopup(popupImage);
 }
 
 // Adding cards to a page
@@ -44,7 +39,7 @@ initialCards.forEach((item) => {
     item.name,
     item.link,
     handleLikeButtonClick,
-    handleImageClickWrapper
+    handleCardImageClick
   );
   placesList.append(cardElement);
 });
@@ -87,7 +82,7 @@ formAddNewCard.addEventListener("submit", (evt) => {
     titleNewCard.value,
     linkNewCard.value,
     handleLikeButtonClick,
-    handleImageClickWrapper
+    handleCardImageClick
   );
   placesList.prepend(newCardElement);
   formAddNewCard.reset();
