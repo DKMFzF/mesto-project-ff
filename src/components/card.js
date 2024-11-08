@@ -16,6 +16,14 @@ function createCard(nameCard, imgSrc, handleLike, handleImageClick) {
   return cardElement;
 }
 
+// Функция показывает попат изображения 
+function handleCardImageClick(cardImg, cardTitle, popupImageElement, popupCaption, popupImage, openPopup) {
+  popupImageElement.src = cardImg.src;
+  popupImageElement.alt = cardImg.alt;
+  popupCaption.textContent = cardTitle.textContent;
+  openPopup(popupImage);
+}
+
 function handleLikeButtonClick(evt) {
   evt.target.classList.toggle("card__like-button_is-active");
 }
@@ -24,4 +32,4 @@ function deleteCard(cardElement) {
   cardElement.remove();
 }
 
-export { createCard, handleLikeButtonClick, deleteCard };
+export { createCard, handleLikeButtonClick, deleteCard, handleCardImageClick };
