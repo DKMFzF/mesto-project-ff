@@ -33,8 +33,6 @@ const linkNewCard = formAddNewCard.querySelector(".popup__input_type_url");
  * которая не зависит от "конкретных" DOM-элементов
  * Благодаря этому card.js ничего не знает о DOM-структуре попапов
  * и как я думаю сохраняет модульный подход
- * Другого способа я невыкупил, как сохранить модульный подход
- * и не залесть к DOM-элементам попатов в самом файле card.js
  */
 function handleImageClickWrapper(cardImg, cardTitle) {
   handleCardImageClick(cardImg, cardTitle, popupImageElement, popupCaption, popupImage, openPopup);
