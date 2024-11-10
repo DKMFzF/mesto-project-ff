@@ -5,6 +5,7 @@ import {
   closePopup,
   setClosePopupOnOverlayClick
 } from "../components/modal.js";
+// import { checkInputValidity } from '../components/validation.js';
 import "../pages/index.css";
 
 // DOM-elements
@@ -24,6 +25,39 @@ const nameInput = formEditProfile.querySelector(".popup__input_type_name");
 const jobInput = formEditProfile.querySelector(".popup__input_type_description");
 const titleNewCard = formAddNewCard.querySelector(".popup__input_type_card-name");
 const linkNewCard = formAddNewCard.querySelector(".popup__input_type_url");
+
+// validate
+const formElement = document.querySelector('.popup__form');
+const formInput = formElement.querySelector('.popup__input');
+const formError = formElement.querySelector(`.${formInput.id}-error`);
+
+const showError = (input, errorMessage) => {
+  input.classList.add('popup__input_error');
+  formError.textContent = errorMessage;
+  formError.classList.add('popup__input-error_active');
+};
+
+const hideError = (input) => {
+  input.classList.remove('popup__input_error');
+  formError.textContent = '';
+  formError.classList.remove('popup__input-error_active');
+};
+
+export const checkInputValidity = () => {
+  if (!formInput.validity.valid) {
+    showError(formInput, formInput.validationMessage);
+  } else {
+    hideError(formInput);
+  }
+};
+
+formElement.addEventListener('submit', function (evt) {
+  evt.preventDefault();
+});
+
+formInput.addEventListener('input', function () {
+  checkInputValidity();
+});
 
 // img-cards-popup
 function handleCardImageClick(cardImg, cardTitle) {

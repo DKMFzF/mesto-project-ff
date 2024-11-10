@@ -45,26 +45,25 @@
           <button type="button" class="popup__close"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
           <form class="popup__form" name="editProfile" novalidate>
-            <label class="popup__lable">
-              <input
-                type="text"
-                name="name"
-                class="popup__input popup__input_type_name"
-                placeholder="Имя"
-                required
-              />
-              <span class="popup__input-error"></span>
-            </label>
-            <label class="popup__lable" style="margin-bottom: 0;">
-              <input
-                type="text"
-                name="description"
-                class="popup__input popup__input_type_description"
-                placeholder="Занятие"
-                required
-              />
-              <span class="popup__input-error"></span>
-            </label>
+            <input
+              id="name-input"
+              type="text"
+              name="name"
+              class="popup__input popup__input_type_name"
+              placeholder="Имя"
+              required
+              minlength="2"
+              maxlength="40"
+            />
+            <span class="popup__input-error name-input-error"></span>
+            <input
+              type="text"
+              name="description"
+              class="popup__input popup__input_type_description"
+              placeholder="Занятие"
+              required
+            />
+            <span class="popup__input-error"></span>
             <button type="submit" class="button popup__button">
               Сохранить
             </button>
