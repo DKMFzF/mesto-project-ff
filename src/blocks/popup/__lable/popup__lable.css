@@ -1,0 +1,5 @@
+.popup__lable {
+    display: flex;
+    margin-bottom: 20px;
+    position: relative;
+}
