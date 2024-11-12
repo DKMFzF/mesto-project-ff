@@ -55,16 +55,19 @@
               minlength="2"
               maxlength="40"
             />
-            <span class="popup__input-error name-input-error"></span>
+            <span class="popup__input-error popup__input-error_name name-input-error"></span>
             <input
+              id="description-input"
               type="text"
               name="description"
               class="popup__input popup__input_type_description"
               placeholder="Занятие"
               required
+              minlength="2"
+              maxlength="200"
             />
-            <span class="popup__input-error"></span>
-            <button type="submit" class="button popup__button">
+            <span class="popup__input-error popup__input-error_description description-input-error"></span>
+            <button type="submit" class="popup-form-submit button popup__button">
               Сохранить
             </button>
           </form>
@@ -91,7 +94,7 @@
               placeholder="Ссылка на картинку"
               required
             />
-            <button type="submit" class="button popup__button">
+            <button type="submit" class="popup-form-submit button popup__button">
               Сохранить
             </button>
           </form>

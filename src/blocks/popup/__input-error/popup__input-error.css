@@ -1,8 +1,10 @@
+@import url('./_name/popup__input-error_name.css');
+@import url('./_description/popup__input-error_description.css');
+
 .popup__input-error {
     padding-inline: 36px;
     position: absolute;
     opacity: 0;
-    top: 141px;
     left: 0;
     color: rgba(255, 0, 0, 1);
     font-size: 12px;
