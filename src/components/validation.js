@@ -14,8 +14,6 @@ const hideInputError = (formElement, inputElement) => {
 
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
-    console.log(inputElement.validationMessage);
-    console.log(!inputElement.validity.valid);
     return !inputElement.validity.valid;
   })
 };

@@ -29,15 +29,11 @@ function removeInputErrorInPopup() {
   const popupInpErr = document.querySelectorAll(".popup__input-error"); 
   const popupInp = document.querySelectorAll(".popup__input");
   const popupBtn = document.querySelectorAll('#profile-btn-save');
-
-  popupInpErr.forEach(err => {
-    err.classList.remove('popup__input-error_active');
-  })
-  popupInp.forEach(inputErr => {
-    inputErr.classList.remove('popup__input_error');
-  });
-  popupBtn.forEach(btnErr => {
+  popupInpErr.forEach(err => err.classList.remove('popup__input-error_active'))
+  popupInp.forEach(inputErr => inputErr.classList.remove('popup__input_error'));
+  popupBtn.forEach(btnErr =>  {
     btnErr.classList.remove('button_inactive');
+    btnErr.removeAttribute('disabled');
   });
 }
 
