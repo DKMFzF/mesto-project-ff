@@ -54,8 +54,12 @@
               required
               minlength="2"
               maxlength="40"
+              pattern="^[a-zA-Zа-яА-ЯёЁ\- ]+$"
+              data-error-message="Разрешены только латинские и кириллические буквы, знаки дефиса и пробелы"
             />
-            <span class="popup__input-error popup__input-error_name name-input-error"></span>
+            <span
+              class="popup__input-error popup__input-error_name name-input-error"
+            ></span>
             <input
               id="description-input"
               type="text"
@@ -65,9 +69,17 @@
               required
               minlength="2"
               maxlength="200"
+              pattern="^[a-zA-Zа-яА-ЯёЁ\- ]+$"
+              data-error-message=""
             />
-            <span class="popup__input-error popup__input-error_description description-input-error"></span>
-            <button id="profile-btn-save" type="submit" class="popup-form-submit button popup__button">
+            <span
+              class="popup__input-error popup__input-error_description description-input-error"
+            ></span>
+            <button
+              id="profile-btn-save"
+              type="submit"
+              class="popup-form-submit button popup__button"
+            >
               Сохранить
             </button>
           </form>
@@ -94,7 +106,11 @@
               placeholder="Ссылка на картинку"
               required
             />
-            <button id="add-new-card-btn" type="submit" class="popup-form-submit button popup__button">
+            <button
+              id="add-new-card-btn"
+              type="submit"
+              class="popup-form-submit button popup__button"
+            >
               Сохранить
             </button>
           </form>
