@@ -4,6 +4,8 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
+  const formAddNewCard = document.forms.newPlace;;
+  formAddNewCard.reset();
   removeInputErrorInPopup();
   popup.classList.remove("popup_is-opened");
   document.removeEventListener("keydown", handleEscClose);
