@@ -5,13 +5,14 @@ import {
   closePopup,
   setClosePopupOnOverlayClick
 } from "../components/modal.js";
-// import { checkInputValidity } from '../components/validation.js';
+import { enableValidation } from '../components/validation.js';
 import "../pages/index.css";
 
 // DOM-elements
 const placesList = document.querySelector(".places__list");
 const btnEdit = document.querySelector(".profile__edit-button");
 const btnNewCard = document.querySelector(".profile__add-button");
+const btnClosePoput = document.querySelectorAll(".popup__close");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const formEditProfile = document.forms.editProfile;
@@ -26,71 +27,8 @@ const jobInput = formEditProfile.querySelector(".popup__input_type_description")
 const titleNewCard = formAddNewCard.querySelector(".popup__input_type_card-name");
 const linkNewCard = formAddNewCard.querySelector(".popup__input_type_url");
 
-// start validate
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup__input_error');
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__input-error_active');
-};
-
-const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_error');
-  errorElement.classList.remove('popup__input-error_active');
-  errorElement.textContent = '';
-};
-
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  })
-};
-
-const toggleButtonState = (inputList, buttonElement) => {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.disabled = true;
-    buttonElement.classList.add('button_inactive');
-  } else {
-    buttonElement.disabled = false;
-    buttonElement.classList.remove('button_inactive');
-  }
-};
-
-const checkInputValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-};
-
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const buttonElement = formElement.querySelector('.popup-form-submit');
-  console.log(buttonElement);
-  toggleButtonState(inputList, buttonElement);
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
-    });
-  });
-};
-
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
-  console.log(formList);
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-    setEventListeners(formElement);
-  });
-};
-
+// valid forms
 enableValidation();
-// end validate
 
 // img-cards-popup
 function handleCardImageClick(cardImg, cardTitle) {
@@ -122,8 +60,8 @@ btnEdit.addEventListener("click", () => {
 btnNewCard.addEventListener("click", () => openPopup(popupNewCard));
 
 // Closing popups when clicking on the close buttons
-document.querySelectorAll(".popup__close").forEach((btnClose) => {
-  btnClose.addEventListener("click", () => {
+btnClosePoput.forEach((btnClose) => {
+    btnClose.addEventListener("click", () => {
     const popup = btnClose.closest(".popup");
     closePopup(popup);
   });
