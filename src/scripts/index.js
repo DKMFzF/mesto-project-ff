@@ -3,9 +3,9 @@ import { createCard, handleLikeButtonClick } from "../components/card.js";
 import {
   openPopup,
   closePopup,
-  setClosePopupOnOverlayClick
+  setClosePopupOnOverlayClick,
 } from "../components/modal.js";
-import { enableValidation } from '../components/validation.js';
+import { enableValidation, clearValidation } from "../components/validation.js";
 import "../pages/index.css";
 
 // DOM-elements
@@ -23,19 +23,25 @@ const popupImage = document.querySelector(".popup_type_image");
 const popupImageElement = popupImage.querySelector(".popup__image");
 const popupCaption = popupImage.querySelector(".popup__caption");
 const nameInput = formEditProfile.querySelector(".popup__input_type_name");
-const jobInput = formEditProfile.querySelector(".popup__input_type_description");
-const titleNewCard = formAddNewCard.querySelector(".popup__input_type_card-name");
+const jobInput = formEditProfile.querySelector(
+  ".popup__input_type_description"
+);
+const titleNewCard = formAddNewCard.querySelector(
+  ".popup__input_type_card-name"
+);
 const linkNewCard = formAddNewCard.querySelector(".popup__input_type_url");
 
 // valid forms
-enableValidation({
-  formSelector: '.popup__form', 
-  inputSelector: '.popup__input', 
-  submitButtonSelector: '.popup-form-submit',
-  inactiveButtonClass: 'button_inactive',
-  inputErrorClass: 'popup__input_error', 
-  errorClass: 'popup__input-error_active'
-});
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup-form-submit",
+  inactiveButtonClass: "button_inactive",
+  inputErrorClass: "popup__input_error",
+  errorClass: "popup__input-error_active",
+};
+
+enableValidation(validationConfig);
 
 // img-cards-popup
 function handleCardImageClick(cardImg, cardTitle) {
@@ -60,15 +66,19 @@ initialCards.forEach((item) => {
 btnEdit.addEventListener("click", () => {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileDescription.textContent;
+  clearValidation(formEditProfile, validationConfig);
   openPopup(popupEdit);
 });
 
-// Opening a popup to add a new card
-btnNewCard.addEventListener("click", () => openPopup(popupNewCard));
+// Opening a popup to add a new card with validation reset
+btnNewCard.addEventListener("click", () => {
+  clearValidation(formAddNewCard, validationConfig);
+  openPopup(popupNewCard);
+});
 
 // Closing popups when clicking on the close buttons
 btnClosePoput.forEach((btnClose) => {
-    btnClose.addEventListener("click", () => {
+  btnClose.addEventListener("click", () => {
     const popup = btnClose.closest(".popup");
     closePopup(popup);
   });
