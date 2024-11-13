@@ -28,7 +28,14 @@ const titleNewCard = formAddNewCard.querySelector(".popup__input_type_card-name"
 const linkNewCard = formAddNewCard.querySelector(".popup__input_type_url");
 
 // valid forms
-enableValidation();
+enableValidation({
+  formSelector: '.popup__form', 
+  inputSelector: '.popup__input', 
+  submitButtonSelector: '.popup-form-submit',
+  inactiveButtonClass: 'button_inactive',
+  inputErrorClass: 'popup__input_error', 
+  errorClass: 'popup__input-error_active'
+});
 
 // img-cards-popup
 function handleCardImageClick(cardImg, cardTitle) {
