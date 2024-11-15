@@ -26,7 +26,6 @@ const getRequestVer = (res) => {
   return Promise.reject(`Ошибка: ${res.status}`);
 };
 
-
 // edit data profile
 export const editDataProfile = (newName, newDescription) => {
     return fetch(`${config.baseUrl}/users/me`, {
@@ -36,5 +35,17 @@ export const editDataProfile = (newName, newDescription) => {
             name: newName,
             about: newDescription,
         })
-    })
+    });
+}
+
+// add new card
+export const addNewCard = (titleCard, linkImg) => {
+    return fetch(`${config.baseUrl}/cards`, {
+        method: 'POST',
+        headers: config.headers,
+        body: JSON.stringify({
+            name: titleCard,
+            link: linkImg 
+        })
+    });
 }

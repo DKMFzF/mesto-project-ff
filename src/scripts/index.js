@@ -1,5 +1,5 @@
 import initialCards from "./cards";
-import { getInitialCards, getUserName, editDataProfile } from "../components/api.js";
+import { getInitialCards, getUserName, editDataProfile, addNewCard } from "../components/api.js";
 import { createCard, handleLikeButtonClick } from "../components/card.js";
 import {
   openPopup,
@@ -110,6 +110,7 @@ formAddNewCard.addEventListener("submit", (evt) => {
     handleCardImageClick
   );
   placesList.prepend(newCardElement);
+  addNewCard(titleNewCard.value, linkNewCard.value);
   formAddNewCard.reset();
   closePopup(popupNewCard);
 });
