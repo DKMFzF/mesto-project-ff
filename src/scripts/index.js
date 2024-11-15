@@ -119,7 +119,6 @@ formAddNewCard.addEventListener("submit", (evt) => {
 Promise.all([getUserName(), getInitialCards()])
   .then(([userData, cards]) => {
     loadProfElements(userData);
-
     cards.forEach((item) => {
       const cardElement = createCard(
         item.name,
@@ -127,6 +126,10 @@ Promise.all([getUserName(), getInitialCards()])
         handleLikeButtonClick,
         handleCardImageClick
       );
+
+      // add quantity btn like in card
+      cardElement.querySelector('.card__quantity-like').textContent = item.likes.length;
+      
       placesList.append(cardElement);
     });
   })
