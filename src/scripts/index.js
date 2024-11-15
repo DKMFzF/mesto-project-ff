@@ -1,5 +1,5 @@
 import initialCards from "./cards";
-import { getInitialCards } from '../components/api.js';
+import { getInitialCards, getUserName } from '../components/api.js';
 import { createCard, handleLikeButtonClick } from "../components/card.js";
 import {
   openPopup,
@@ -16,6 +16,7 @@ const btnNewCard = document.querySelector(".profile__add-button");
 const btnClosePoput = document.querySelectorAll(".popup__close");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
+const profileImg = document.querySelector('.profile__image');
 const formEditProfile = document.forms.editProfile;
 const formAddNewCard = document.forms.newPlace;
 const popupNewCard = document.querySelector(".popup_type_new-card");
@@ -36,16 +37,23 @@ const validationConfig = {
   errorClass: "popup__input-error_active",
 };
 
-// valid forms
-enableValidation(validationConfig);
-
 // img-cards-popup
-function handleCardImageClick(cardImg, cardTitle) {
+const handleCardImageClick = (cardImg, cardTitle) => {
   popupImageElement.src = cardImg.src;
   popupImageElement.alt = cardImg.alt;
   popupCaption.textContent = cardTitle.textContent;
   openPopup(popupImage);
 }
+
+// load info profile
+const loadProfElements = (data) => {
+  profileTitle.textContent = data.name;
+  profileDescription.textContent = data.about;
+  profileImg.style.backgroundImage = `url(${data.avatar})`;
+}
+
+// valid forms
+enableValidation(validationConfig);
 
 // Adding cards to a page
 initialCards.forEach((item) => {
@@ -107,10 +115,16 @@ formAddNewCard.addEventListener("submit", (evt) => {
   closePopup(popupNewCard);
 });
 
-
-// работы с API
-getInitialCards()
+// user
+getUserName()
   .then(data => {
-    console.log(data);
+    loadProfElements(data);
   })
   .catch(err => console.log(err));
+
+// cards
+// getInitialCards()
+//   .then(data => {
+//     console.log(data);
+//   })
+//   .catch(err => console.log(err));

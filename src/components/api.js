@@ -6,14 +6,23 @@ const config = {
     }
 }
 
+// User
+export const getUserName = () => {
+    return fetch(`${config.baseUrl}/users/me`, { headers: config.headers })
+    .then(getRequestVer);
+}
+
+// Cards
 export const getInitialCards = () => {
-    return fetch(`${config.baseUrl}/cards`, { 
-        headers: config.headers 
-    })
+    return fetch(`${config.baseUrl}`, { headers: config.headers })
     .then(res => {
-        if (res.ok) {
-            return res.json();
-        }
+        if (res.ok) return res.json();
         return Promise.reject(`Ошибка: ${res.status}`);
     });
 };
+
+// Check Request
+const getRequestVer = (res) => {
+    if (res.ok) return res.json();
+    return Promise.reject(`Ошибка: ${res.status}`);
+}
