@@ -1,4 +1,5 @@
 import initialCards from "./cards";
+import { getInitialCards } from '../components/api.js';
 import { createCard, handleLikeButtonClick } from "../components/card.js";
 import {
   openPopup,
@@ -23,15 +24,9 @@ const popupImage = document.querySelector(".popup_type_image");
 const popupImageElement = popupImage.querySelector(".popup__image");
 const popupCaption = popupImage.querySelector(".popup__caption");
 const nameInput = formEditProfile.querySelector(".popup__input_type_name");
-const jobInput = formEditProfile.querySelector(
-  ".popup__input_type_description"
-);
-const titleNewCard = formAddNewCard.querySelector(
-  ".popup__input_type_card-name"
-);
+const jobInput = formEditProfile.querySelector(".popup__input_type_description");
+const titleNewCard = formAddNewCard.querySelector(".popup__input_type_card-name");
 const linkNewCard = formAddNewCard.querySelector(".popup__input_type_url");
-
-// valid forms
 const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -41,6 +36,7 @@ const validationConfig = {
   errorClass: "popup__input-error_active",
 };
 
+// valid forms
 enableValidation(validationConfig);
 
 // img-cards-popup
@@ -110,3 +106,11 @@ formAddNewCard.addEventListener("submit", (evt) => {
   formAddNewCard.reset();
   closePopup(popupNewCard);
 });
+
+
+// работы с API
+getInitialCards()
+  .then(data => {
+    console.log(data);
+  })
+  .catch(err => console.log(err));
