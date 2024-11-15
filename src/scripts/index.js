@@ -1,5 +1,5 @@
 import initialCards from "./cards";
-import { getInitialCards, getUserName } from '../components/api.js';
+import { getInitialCards, getUserName, editDataProfile } from "../components/api.js";
 import { createCard, handleLikeButtonClick } from "../components/card.js";
 import {
   openPopup,
@@ -16,7 +16,7 @@ const btnNewCard = document.querySelector(".profile__add-button");
 const btnClosePoput = document.querySelectorAll(".popup__close");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
-const profileImg = document.querySelector('.profile__image');
+const profileImg = document.querySelector(".profile__image");
 const formEditProfile = document.forms.editProfile;
 const formAddNewCard = document.forms.newPlace;
 const popupNewCard = document.querySelector(".popup_type_new-card");
@@ -25,9 +25,15 @@ const popupImage = document.querySelector(".popup_type_image");
 const popupImageElement = popupImage.querySelector(".popup__image");
 const popupCaption = popupImage.querySelector(".popup__caption");
 const nameInput = formEditProfile.querySelector(".popup__input_type_name");
-const jobInput = formEditProfile.querySelector(".popup__input_type_description");
-const titleNewCard = formAddNewCard.querySelector(".popup__input_type_card-name");
+const jobInput = formEditProfile.querySelector(
+  ".popup__input_type_description"
+);
+const titleNewCard = formAddNewCard.querySelector(
+  ".popup__input_type_card-name"
+);
 const linkNewCard = formAddNewCard.querySelector(".popup__input_type_url");
+
+// config form-valid
 const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -43,28 +49,17 @@ const handleCardImageClick = (cardImg, cardTitle) => {
   popupImageElement.alt = cardImg.alt;
   popupCaption.textContent = cardTitle.textContent;
   openPopup(popupImage);
-}
+};
 
 // load info profile
 const loadProfElements = (data) => {
   profileTitle.textContent = data.name;
   profileDescription.textContent = data.about;
   profileImg.style.backgroundImage = `url(${data.avatar})`;
-}
+};
 
 // valid forms
 enableValidation(validationConfig);
-
-// Adding cards to a page
-initialCards.forEach((item) => {
-  const cardElement = createCard(
-    item.name,
-    item.link,
-    handleLikeButtonClick,
-    handleCardImageClick
-  );
-  placesList.append(cardElement);
-});
 
 // Opening a pop-up for profile editing
 btnEdit.addEventListener("click", () => {
@@ -88,7 +83,10 @@ btnClosePoput.forEach((btnClose) => {
   });
 });
 
-// Installing closing handlers by clicking on the overlay for each popup separately
+/*
+ * Installing closing handlers by clicking on the
+ * overlay for each popup separately
+ */
 setClosePopupOnOverlayClick(popupEdit);
 setClosePopupOnOverlayClick(popupNewCard);
 setClosePopupOnOverlayClick(popupImage);
@@ -98,6 +96,7 @@ formEditProfile.addEventListener("submit", (evt) => {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileDescription.textContent = jobInput.value;
+  editDataProfile(profileTitle.textContent, profileDescription.textContent);
   closePopup(popupEdit);
 });
 
@@ -115,16 +114,19 @@ formAddNewCard.addEventListener("submit", (evt) => {
   closePopup(popupNewCard);
 });
 
-// user
-getUserName()
-  .then(data => {
-    loadProfElements(data);
-  })
-  .catch(err => console.log(err));
+// Load user and cards with Promise.all
+Promise.all([getUserName(), getInitialCards()])
+  .then(([userData, cards]) => {
+    loadProfElements(userData);
 
-// cards
-// getInitialCards()
-//   .then(data => {
-//     console.log(data);
-//   })
-//   .catch(err => console.log(err));
+    cards.forEach((item) => {
+      const cardElement = createCard(
+        item.name,
+        item.link,
+        handleLikeButtonClick,
+        handleCardImageClick
+      );
+      placesList.append(cardElement);
+    });
+  })
+  .catch((err) => console.log(err));
