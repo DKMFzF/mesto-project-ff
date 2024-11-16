@@ -6,10 +6,10 @@ import {
   deleteCardRequest,
   likeCard,
   unlikeCard,
+  avatarEdit
 } from "../components/api.js";
 import {
   createCard,
-  // handleLikeButtonClick,
   deleteCard,
 } from "../components/card.js";
 import {
@@ -69,6 +69,7 @@ const loadProfElements = (data) => {
   profileImg.style.backgroundImage = `url(${data.avatar})`;
 };
 
+// like and removing like
 export const handleLikeButtonClick = (evt, likeButton, likeCounter) => {
   const isLiked = likeButton.classList.contains("card__like-button_is-active");
   const cardElement = evt.target.closest(".places__item.card");
@@ -158,6 +159,7 @@ formAddNewCard.addEventListener("submit", (evt) => {
 // Load user and cards with Promise.all
 Promise.all([getUserName(), getInitialCards()])
   .then(([userData, cards]) => {
+    console.log(userData)
     loadProfElements(userData);
     cards.forEach((item) => {
       const cardElement = createCard(
