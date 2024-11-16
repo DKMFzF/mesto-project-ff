@@ -20,12 +20,6 @@ export const getInitialCards = () => {
   );
 };
 
-// Check Request
-const getRequestVer = (res) => {
-  if (res.ok) return res.json();
-  return Promise.reject(`Ошибка: ${res.status}`);
-};
-
 // edit data profile
 export const editDataProfile = (newName, newDescription) => {
     return fetch(`${config.baseUrl}/users/me`, {
@@ -59,9 +53,31 @@ export const deleteCardRequest = (item) => {
 }
 
 // like card
-export const requestLikeCard = (item) => {
-  return fetch(`${config.baseUrl}/cards/likes/${item._id}`, {
-    method: 'PUT',
-    headers: config.headers
-  });
-}
+// export const requestLikeCard = (item) => {
+//   return fetch(`${config.baseUrl}/cards/likes/${item._id}`, {
+//     method: 'PUT',
+//     headers: config.headers
+//   });
+// }
+
+// Лайк карточки
+export const likeCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: "PUT",
+    headers: config.headers,
+  }).then(getRequestVer);
+};
+
+// Удаление лайка
+export const unlikeCard = (cardId) => {
+  return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
+    method: "DELETE",
+    headers: config.headers,
+  }).then(getRequestVer);
+};
+
+// Check Request
+const getRequestVer = (res) => {
+  if (res.ok) return res.json();
+  return Promise.reject(`Ошибка: ${res.status}`);
+};
