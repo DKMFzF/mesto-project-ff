@@ -6,7 +6,7 @@ import {
   deleteCardRequest,
   likeCard,
   unlikeCard,
-  avatarEdit
+  // avatarEdit
 } from "../components/api.js";
 import {
   createCard,
@@ -22,14 +22,17 @@ import "../pages/index.css";
 
 // DOM-elements
 const placesList = document.querySelector(".places__list");
+const btnEditAvatar = document.querySelector("#avatar");
 const btnEdit = document.querySelector(".profile__edit-button");
 const btnNewCard = document.querySelector(".profile__add-button");
 const btnClosePoput = document.querySelectorAll(".popup__close");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileImg = document.querySelector(".profile__image");
+// const formEditAvatar = document.forms.editProfileAvatar;
 const formEditProfile = document.forms.editProfile;
 const formAddNewCard = document.forms.newPlace;
+const popupAvatarEdit = document.querySelector('.popup_type_avatar');
 const popupNewCard = document.querySelector(".popup_type_new-card");
 const popupEdit = document.querySelector(".popup_type_edit");
 const popupImage = document.querySelector(".popup_type_image");
@@ -92,6 +95,12 @@ export const handleLikeButtonClick = (evt, likeButton, likeCounter) => {
 
 // valid forms
 enableValidation(validationConfig);
+
+// Opening a pop-up for avatar editing
+btnEditAvatar.addEventListener('click', (evt) => {
+  clearValidation(formEditProfile, validationConfig);
+  openPopup(popupAvatarEdit);
+});
 
 // Opening a pop-up for profile editing
 btnEdit.addEventListener("click", () => {

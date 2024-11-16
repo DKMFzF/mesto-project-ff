@@ -1,3 +1,5 @@
+@import url('./_avatar/popup__content_avatar.css');
+
 .popup__content {
   max-width: 430px;
   width: 100%;

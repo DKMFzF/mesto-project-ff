@@ -1,0 +1,5 @@
+.popup__content_avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

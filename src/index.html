@@ -21,8 +21,12 @@
       <main class="content">
         <section class="profile page__section">
           <div
+            id="avatar"
             class="profile__image"
             style="background-image: url()"
+            role="button"
+            aria-label="Открыть попап изменения аватара"
+            tabindex="0"
           ></div>
           <div class="profile__info">
             <h1 class="profile__title"></h1>
@@ -79,6 +83,32 @@
               id="profile-btn-save"
               type="submit"
               class="popup-form-submit button popup__button"
+            >
+              Сохранить
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- попап изменения авы -->
+      <div class="popup popup_type_avatar popup_is-animated">
+        <div class="popup__content popup__content_avatar">
+          <button type="button" class="popup__close"></button>
+          <h3 class="popup__title">Обновить аватар</h3>
+          <form class="popup__form" name="editProfileAvatar">
+            <input
+              id="avatar-link"
+              type="url"
+              name="avatarInput"
+              class="popup__input popup__input_type_url"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="popup__input-error popup__input-error_img-link-avatar avatar-link-error"></span>
+            <button
+              id="avatar-btn-save"
+              type="submit"
+              class="popup-form-submit button popup__button popup__button_avatar"
             >
               Сохранить
             </button>
