@@ -5,13 +5,13 @@ import {
   addNewCard,
   deleteCardRequest,
   likeCard,
-  unlikeCard
+  unlikeCard,
 } from "../components/api.js";
-import { 
-  createCard, 
-  // handleLikeButtonClick, 
+import {
+  createCard,
+  // handleLikeButtonClick,
   deleteCard,
- } from "../components/card.js";
+} from "../components/card.js";
 import {
   openPopup,
   closePopup,
@@ -141,12 +141,11 @@ formAddNewCard.addEventListener("submit", (evt) => {
         cardData.name,
         cardData.link,
         handleLikeButtonClick,
-        handleCardImageClick
+        handleCardImageClick,
+        cardData.likes.length
       );
-      
-      newCardElement.querySelector(".card__quantity-like").textContent =
-        cardData.likes.length;
 
+      newCardElement.dataset.cardId = cardData._id;
       deleteCard(newCardElement, deleteCardRequest, cardData);
 
       placesList.prepend(newCardElement);
@@ -161,7 +160,6 @@ Promise.all([getUserName(), getInitialCards()])
   .then(([userData, cards]) => {
     loadProfElements(userData);
     cards.forEach((item) => {
-      console.log(item);
       const cardElement = createCard(
         item.name,
         item.link,
@@ -172,11 +170,15 @@ Promise.all([getUserName(), getInitialCards()])
 
       cardElement.dataset.cardId = item._id;
 
-      if (userData._id !== item.owner._id) {
-        cardElement.querySelector(".card__delete-button").style.display = "none";
-      } else {
-        deleteCard(cardElement, deleteCardRequest, item);
-      }
+      if (userData._id !== item.owner._id)
+        cardElement.querySelector(".card__delete-button").style.display =
+          "none";
+      else deleteCard(cardElement, deleteCardRequest, item);
+
+      if (item.likes.some((like) => like._id === userData._id))
+        cardElement
+          .querySelector(".card__like-button")
+          .classList.add("card__like-button_is-active");
 
       placesList.append(cardElement);
     });

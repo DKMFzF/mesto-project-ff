@@ -11,6 +11,7 @@ export const createCard = (nameCard, imgSrc, handleLike, handleImageClick, likes
   cardTitle.textContent = nameCard;
   likeCounter.textContent = likesCount;
 
+  // Установка обработчиков
   likeButton.addEventListener("click", (evt) => handleLike(evt, likeButton, likeCounter));
   cardImg.addEventListener("click", () => handleImageClick(cardImg, cardTitle));
 
