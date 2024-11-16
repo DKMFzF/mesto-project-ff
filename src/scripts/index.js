@@ -1,4 +1,3 @@
-import initialCards from "./cards";
 import { getInitialCards, getUserName, editDataProfile, addNewCard } from "../components/api.js";
 import { createCard, handleLikeButtonClick } from "../components/card.js";
 import {
