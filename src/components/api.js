@@ -49,3 +49,11 @@ export const addNewCard = (titleCard, linkImg) => {
         })
     });
 }
+
+// delete card
+export const deleteCardRequest = (item) => {
+  return fetch(`${config.baseUrl}/cards/${item._id}`, {
+    method: 'DELETE',
+    headers: config.headers
+  });
+}

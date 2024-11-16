@@ -3,8 +3,13 @@ import {
   getUserName,
   editDataProfile,
   addNewCard,
+  deleteCardRequest
 } from "../components/api.js";
-import { createCard, handleLikeButtonClick } from "../components/card.js";
+import { 
+  createCard, 
+  handleLikeButtonClick, 
+  deleteCard
+ } from "../components/card.js";
 import {
   openPopup,
   closePopup,
@@ -139,6 +144,8 @@ Promise.all([getUserName(), getInitialCards()])
       if (userData._id !== item.owner._id) {
         cardElement.querySelector(".card__delete-button").style.display =
           "none";
+      } else {
+        deleteCard(cardElement, deleteCardRequest, item);
       }
 
       placesList.append(cardElement);

@@ -1,5 +1,3 @@
-// validation.js
-
 const showInputError = (
   formElement,
   inputElement,
