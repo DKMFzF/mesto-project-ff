@@ -1,4 +1,9 @@
-import { getInitialCards, getUserName, editDataProfile, addNewCard } from "../components/api.js";
+import {
+  getInitialCards,
+  getUserName,
+  editDataProfile,
+  addNewCard,
+} from "../components/api.js";
 import { createCard, handleLikeButtonClick } from "../components/card.js";
 import {
   openPopup,
@@ -127,8 +132,15 @@ Promise.all([getUserName(), getInitialCards()])
       );
 
       // add quantity btn like in card
-      cardElement.querySelector('.card__quantity-like').textContent = item.likes.length;
-      
+      cardElement.querySelector(".card__quantity-like").textContent =
+        item.likes.length;
+
+      // btn delete-card
+      if (userData._id !== item.owner._id) {
+        cardElement.querySelector(".card__delete-button").style.display =
+          "none";
+      }
+
       placesList.append(cardElement);
     });
   })
