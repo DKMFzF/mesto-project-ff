@@ -112,16 +112,23 @@ formEditProfile.addEventListener("submit", (evt) => {
 // Sending a form for adding a new card
 formAddNewCard.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  const newCardElement = createCard(
-    titleNewCard.value,
-    linkNewCard.value,
-    handleLikeButtonClick,
-    handleCardImageClick
-  );
-  placesList.prepend(newCardElement);
-  addNewCard(titleNewCard.value, linkNewCard.value);
-  formAddNewCard.reset();
-  closePopup(popupNewCard);
+
+  addNewCard(titleNewCard.value, linkNewCard.value)
+    .then((cardData) => {
+      const newCardElement = createCard(
+        cardData.name,
+        cardData.link,
+        handleLikeButtonClick,
+        handleCardImageClick
+      );
+
+      deleteCard(newCardElement, deleteCardRequest, cardData);
+
+      placesList.prepend(newCardElement);
+      formAddNewCard.reset();
+      closePopup(popupNewCard);
+    })
+    .catch((err) => console.log(err));
 });
 
 // Load user and cards with Promise.all

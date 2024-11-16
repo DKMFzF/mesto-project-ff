@@ -40,20 +40,28 @@ export const editDataProfile = (newName, newDescription) => {
 
 // add new card
 export const addNewCard = (titleCard, linkImg) => {
-    return fetch(`${config.baseUrl}/cards`, {
-        method: 'POST',
-        headers: config.headers,
-        body: JSON.stringify({
-            name: titleCard,
-            link: linkImg 
-        })
-    });
-}
+  return fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: titleCard,
+      link: linkImg 
+    })
+  }).then(getRequestVer);
+};
 
 // delete card
 export const deleteCardRequest = (item) => {
   return fetch(`${config.baseUrl}/cards/${item._id}`, {
     method: 'DELETE',
+    headers: config.headers
+  });
+}
+
+// like card
+export const requestLikeCard = (item) => {
+  return fetch(`${config.baseUrl}/cards/likes/${item._id}`, {
+    method: 'PUT',
     headers: config.headers
   });
 }

@@ -23,6 +23,6 @@ export const deleteCard = (cardElement, deleteRequest, item) => {
   const btnDeleteCard = cardElement.querySelector('.card__delete-button');
   btnDeleteCard.addEventListener('click', () => {
     cardElement.remove();
-    deleteRequest(item)
+    deleteRequest(item);
   });
 }
