@@ -26,6 +26,9 @@ const btnEditAvatar = document.querySelector("#avatar");
 const btnEdit = document.querySelector(".profile__edit-button");
 const btnNewCard = document.querySelector(".profile__add-button");
 const btnClosePoput = document.querySelectorAll(".popup__close");
+const btnClosePoputAvatar = document.querySelector(".popup__button_avatar");
+const btnClosePoputProfile = document.querySelector(".popup__button_profile");
+const btnClosePoputNewCard = document.querySelector(".popup__button_new-card");
 const inputAvatraLink = document.querySelector("#avatar-link");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
@@ -72,6 +75,15 @@ const loadProfElements = (data) => {
   profileDescription.textContent = data.about;
   profileImg.style.backgroundImage = `url(${data.avatar})`;
 };
+
+// loading in btn save
+const renderLoading = (isLoading, btnClose) => {
+  if (isLoading) {
+    btnClose.textContent = 'Сохранение...';
+  } else {
+    btnClose.textContent = 'Сохранить';
+  }
+}
 
 // like and removing like
 const handleLikeButtonClick = (evt, likeButton, likeCounter) => {
@@ -138,6 +150,7 @@ setClosePopupOnOverlayClick(popupImage);
 formEditAvatar.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
+  renderLoading(true, btnClosePoputAvatar);
   avatarEdit(inputAvatraLink)
     .then(() => {
       btnEditAvatar.style.backgroundImage = `url(${inputAvatraLink.value})`;
@@ -145,22 +158,30 @@ formEditAvatar.addEventListener('submit', (evt) => {
     })
     .catch((err) => {
       console.error(err);
-    });
+    })
+    .finally(() => renderLoading(false, btnClosePoputAvatar));
 });
 
 // Sending a profile editing form
 formEditProfile.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  profileTitle.textContent = nameInput.value;
-  profileDescription.textContent = jobInput.value;
-  editDataProfile(profileTitle.textContent, profileDescription.textContent);
-  closePopup(popupEdit);
+
+  renderLoading(true, btnClosePoputProfile);
+  editDataProfile(nameInput.value, jobInput.value)
+    .then(() => {
+      profileTitle.textContent = nameInput.value;
+      profileDescription.textContent = jobInput.value;
+      closePopup(popupEdit);
+    })
+    .catch((err) => console.error(err))
+    .finally(() => renderLoading(false, btnClosePoputProfile));
 });
 
 // Sending a form for adding a new card
 formAddNewCard.addEventListener("submit", (evt) => {
   evt.preventDefault();
 
+  renderLoading(true, btnClosePoputNewCard);
   addNewCard(titleNewCard.value, linkNewCard.value)
     .then((cardData) => {
       const newCardElement = createCard(
@@ -178,7 +199,8 @@ formAddNewCard.addEventListener("submit", (evt) => {
       formAddNewCard.reset();
       closePopup(popupNewCard);
     })
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err))
+    .finally(() => renderLoading(false, btnClosePoputNewCard));
 });
 
 // Load user and cards with Promise.all
