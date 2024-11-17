@@ -42,6 +42,7 @@ const popupEdit = document.querySelector(".popup_type_edit");
 const popupImage = document.querySelector(".popup_type_image");
 const popupImageElement = popupImage.querySelector(".popup__image");
 const popupCaption = popupImage.querySelector(".popup__caption");
+// const btnDeleteCard = document.querySelectorAll(".card__delete-button");
 const nameInput = formEditProfile.querySelector(".popup__input_type_name");
 const jobInput = formEditProfile.querySelector(
   ".popup__input_type_description"
@@ -193,7 +194,7 @@ formAddNewCard.addEventListener("submit", (evt) => {
       );
 
       newCardElement.dataset.cardId = cardData._id;
-      deleteCard(newCardElement, deleteCardRequest, cardData);
+      deleteCard(newCardElement, deleteCardRequest, cardData, openPopup, closePopup);
 
       placesList.prepend(newCardElement);
       formAddNewCard.reset();
@@ -222,7 +223,7 @@ Promise.all([getUserName(), getInitialCards()])
       if (userData._id !== item.owner._id)
         cardElement.querySelector(".card__delete-button").style.display =
           "none";
-      else deleteCard(cardElement, deleteCardRequest, item);
+      else deleteCard(cardElement, deleteCardRequest, item, openPopup, closePopup);
 
       if (item.likes.some((like) => like._id === userData._id))
         cardElement

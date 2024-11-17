@@ -18,10 +18,25 @@ export const createCard = (nameCard, imgSrc, handleLike, handleImageClick, likes
   return cardElement;
 };
 
-export const deleteCard = (cardElement, deleteRequest, item) => {
+export const deleteCard = (cardElement, deleteRequest, item, openPopup, closePopup) => {
   const btnDeleteCard = cardElement.querySelector('.card__delete-button');
+  const popupDeleteCard = document.querySelector('.popup_type_dalete-card');
+  const formDeleteCard = popupDeleteCard.querySelector('.popup__form');
+  const closePopupButton = popupDeleteCard.querySelector('.popup__close');
+
   btnDeleteCard.addEventListener('click', () => {
-    cardElement.remove();
-    deleteRequest(item);
+    openPopup(popupDeleteCard);
+
+    formDeleteCard.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      deleteRequest(item)
+        .then(() => {
+          cardElement.remove();
+          closePopup(popupDeleteCard);
+        })
+        .catch((err) => console.error(`Ошибка удаления карточки: ${err}`));
+    }, { once: true });
   });
-}
+
+  closePopupButton.addEventListener('click', () => closePopup(popupDeleteCard));
+};
