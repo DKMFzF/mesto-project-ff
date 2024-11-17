@@ -74,7 +74,7 @@ export const avatarEdit = (image) => {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
-      avatar: image
+      avatar: image.value
     })
   })
 }

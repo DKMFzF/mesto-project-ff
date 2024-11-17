@@ -6,7 +6,7 @@ import {
   deleteCardRequest,
   likeCard,
   unlikeCard,
-  // avatarEdit
+  avatarEdit
 } from "../components/api.js";
 import {
   createCard,
@@ -26,10 +26,11 @@ const btnEditAvatar = document.querySelector("#avatar");
 const btnEdit = document.querySelector(".profile__edit-button");
 const btnNewCard = document.querySelector(".profile__add-button");
 const btnClosePoput = document.querySelectorAll(".popup__close");
+const inputAvatraLink = document.querySelector("#avatar-link");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileImg = document.querySelector(".profile__image");
-// const formEditAvatar = document.forms.editProfileAvatar;
+const formEditAvatar = document.forms.editProfileAvatar;
 const formEditProfile = document.forms.editProfile;
 const formAddNewCard = document.forms.newPlace;
 const popupAvatarEdit = document.querySelector('.popup_type_avatar');
@@ -73,7 +74,7 @@ const loadProfElements = (data) => {
 };
 
 // like and removing like
-export const handleLikeButtonClick = (evt, likeButton, likeCounter) => {
+const handleLikeButtonClick = (evt, likeButton, likeCounter) => {
   const isLiked = likeButton.classList.contains("card__like-button_is-active");
   const cardElement = evt.target.closest(".places__item.card");
   const cardId = cardElement.dataset.cardId;
@@ -98,7 +99,7 @@ enableValidation(validationConfig);
 
 // Opening a pop-up for avatar editing
 btnEditAvatar.addEventListener('click', (evt) => {
-  clearValidation(formEditProfile, validationConfig);
+  clearValidation(formEditAvatar, validationConfig);
   openPopup(popupAvatarEdit);
 });
 
@@ -128,9 +129,19 @@ btnClosePoput.forEach((btnClose) => {
  * Installing closing handlers by clicking on the
  * overlay for each popup separately
  */
+setClosePopupOnOverlayClick(popupAvatarEdit);
 setClosePopupOnOverlayClick(popupEdit);
 setClosePopupOnOverlayClick(popupNewCard);
 setClosePopupOnOverlayClick(popupImage);
+
+// Sending a avatar editing
+formEditAvatar.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+
+  btnEditAvatar.style.backgroundImage = `url(${inputAvatraLink.value})`;
+  avatarEdit(inputAvatraLink);
+  closePopup(popupAvatarEdit);
+});
 
 // Sending a profile editing form
 formEditProfile.addEventListener("submit", (evt) => {
