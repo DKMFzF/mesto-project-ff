@@ -138,9 +138,14 @@ setClosePopupOnOverlayClick(popupImage);
 formEditAvatar.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
-  btnEditAvatar.style.backgroundImage = `url(${inputAvatraLink.value})`;
-  avatarEdit(inputAvatraLink);
-  closePopup(popupAvatarEdit);
+  avatarEdit(inputAvatraLink)
+    .then(() => {
+      btnEditAvatar.style.backgroundImage = `url(${inputAvatraLink.value})`;
+      closePopup(popupAvatarEdit);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 });
 
 // Sending a profile editing form
