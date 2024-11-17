@@ -6,12 +6,9 @@ import {
   deleteCardRequest,
   likeCard,
   unlikeCard,
-  avatarEdit
+  avatarEdit,
 } from "../components/api.js";
-import {
-  createCard,
-  deleteCard,
-} from "../components/card.js";
+import { createCard, deleteCard } from "../components/card.js";
 import {
   openPopup,
   closePopup,
@@ -36,7 +33,7 @@ const profileImg = document.querySelector(".profile__image");
 const formEditAvatar = document.forms.editProfileAvatar;
 const formEditProfile = document.forms.editProfile;
 const formAddNewCard = document.forms.newPlace;
-const popupAvatarEdit = document.querySelector('.popup_type_avatar');
+const popupAvatarEdit = document.querySelector(".popup_type_avatar");
 const popupNewCard = document.querySelector(".popup_type_new-card");
 const popupEdit = document.querySelector(".popup_type_edit");
 const popupImage = document.querySelector(".popup_type_image");
@@ -80,11 +77,11 @@ const loadProfElements = (data) => {
 // loading in btn save
 const renderLoading = (isLoading, btnClose) => {
   if (isLoading) {
-    btnClose.textContent = 'Сохранение...';
+    btnClose.textContent = "Сохранение...";
   } else {
-    btnClose.textContent = 'Сохранить';
+    btnClose.textContent = "Сохранить";
   }
-}
+};
 
 // like and removing like
 const handleLikeButtonClick = (evt, likeButton, likeCounter) => {
@@ -111,7 +108,7 @@ const handleLikeButtonClick = (evt, likeButton, likeCounter) => {
 enableValidation(validationConfig);
 
 // Opening a pop-up for avatar editing
-btnEditAvatar.addEventListener('click', (evt) => {
+btnEditAvatar.addEventListener("click", (evt) => {
   clearValidation(formEditAvatar, validationConfig);
   openPopup(popupAvatarEdit);
 });
@@ -148,7 +145,7 @@ setClosePopupOnOverlayClick(popupNewCard);
 setClosePopupOnOverlayClick(popupImage);
 
 // Sending a avatar editing
-formEditAvatar.addEventListener('submit', (evt) => {
+formEditAvatar.addEventListener("submit", (evt) => {
   evt.preventDefault();
 
   renderLoading(true, btnClosePoputAvatar);
@@ -194,7 +191,13 @@ formAddNewCard.addEventListener("submit", (evt) => {
       );
 
       newCardElement.dataset.cardId = cardData._id;
-      deleteCard(newCardElement, deleteCardRequest, cardData, openPopup, closePopup);
+      deleteCard(
+        newCardElement,
+        deleteCardRequest,
+        cardData,
+        openPopup,
+        closePopup
+      );
 
       placesList.prepend(newCardElement);
       formAddNewCard.reset();
@@ -207,7 +210,6 @@ formAddNewCard.addEventListener("submit", (evt) => {
 // Load user and cards with Promise.all
 Promise.all([getUserName(), getInitialCards()])
   .then(([userData, cards]) => {
-    console.log(userData)
     loadProfElements(userData);
     cards.forEach((item) => {
       const cardElement = createCard(
@@ -223,7 +225,8 @@ Promise.all([getUserName(), getInitialCards()])
       if (userData._id !== item.owner._id)
         cardElement.querySelector(".card__delete-button").style.display =
           "none";
-      else deleteCard(cardElement, deleteCardRequest, item, openPopup, closePopup);
+      else
+        deleteCard(cardElement, deleteCardRequest, item, openPopup, closePopup);
 
       if (item.likes.some((like) => like._id === userData._id))
         cardElement
