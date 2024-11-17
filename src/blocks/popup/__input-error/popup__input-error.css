@@ -10,3 +10,18 @@
     color: rgba(255, 0, 0, 1);
     font-size: 12px;
 }
+
+@media screen and (max-width: 568px) {
+    .popup__input-error {
+        font-size: 9px;
+        padding-inline: 20px;
+    }
+
+    .popup__input-error_name {
+      top: 124px;
+    }
+
+    .popup__input-error_description {
+        top: 187px;
+    }
+  }
