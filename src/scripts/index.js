@@ -90,8 +90,9 @@ const renderLoading = (isLoading, btnClose) => {
 enableValidation(validationConfig);
 
 // Opening a pop-up for avatar editing
-btnEditAvatar.addEventListener("click", (evt) => {
-  clearValidation(formEditAvatar, validationConfig);
+btnEditAvatar.addEventListener("click", () => {
+  formEditAvatar.reset(); // Сбрасываем поля формы
+  clearValidation(formEditAvatar, validationConfig); // Очищаем валидацию
   openPopup(popupAvatarEdit);
 });
 
@@ -105,6 +106,7 @@ btnEdit.addEventListener("click", () => {
 
 // Opening a popup to add a new card with validation reset
 btnNewCard.addEventListener("click", () => {
+  formAddNewCard.reset(); // Сбрасываем поля формы
   clearValidation(formAddNewCard, validationConfig);
   openPopup(popupNewCard);
 });

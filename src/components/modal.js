@@ -4,10 +4,6 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-  const formAddNewCard = document.forms.newPlace;
-  const formEditAvatarCs = document.forms.editProfileAvatar;
-  formEditAvatarCs.reset();
-  formAddNewCard.reset();
   popup.classList.remove("popup_is-opened");
   document.removeEventListener("keydown", handleEscClose);
 }
