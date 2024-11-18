@@ -8,7 +8,11 @@ import {
   unlikeCard,
   avatarEdit,
 } from "../components/api.js";
-import { createCard, deleteCard } from "../components/card.js";
+import { 
+  createCard, 
+  deleteCard, 
+  handleLikeButtonClick
+} from "../components/card.js";
 import {
   openPopup,
   closePopup,
@@ -39,7 +43,6 @@ const popupEdit = document.querySelector(".popup_type_edit");
 const popupImage = document.querySelector(".popup_type_image");
 const popupImageElement = popupImage.querySelector(".popup__image");
 const popupCaption = popupImage.querySelector(".popup__caption");
-// const btnDeleteCard = document.querySelectorAll(".card__delete-button");
 const nameInput = formEditProfile.querySelector(".popup__input_type_name");
 const jobInput = formEditProfile.querySelector(
   ".popup__input_type_description"
@@ -81,27 +84,6 @@ const renderLoading = (isLoading, btnClose) => {
   } else {
     btnClose.textContent = "Сохранить";
   }
-};
-
-// like and removing like
-const handleLikeButtonClick = (evt, likeButton, likeCounter) => {
-  const isLiked = likeButton.classList.contains("card__like-button_is-active");
-  const cardElement = evt.target.closest(".places__item.card");
-  const cardId = cardElement.dataset.cardId;
-
-  if (!cardElement || !cardElement.dataset.cardId) {
-    console.error("Ошибка: ID карточки не найден.");
-    return;
-  }
-
-  const apiRequest = isLiked ? unlikeCard : likeCard;
-
-  apiRequest(cardId)
-    .then((updatedCard) => {
-      likeCounter.textContent = updatedCard.likes.length;
-      likeButton.classList.toggle("card__like-button_is-active");
-    })
-    .catch((err) => console.error(`Ошибка обновления лайка: ${err}`));
 };
 
 // valid forms
@@ -185,12 +167,14 @@ formAddNewCard.addEventListener("submit", (evt) => {
       const newCardElement = createCard(
         cardData.name,
         cardData.link,
-        handleLikeButtonClick,
+        (evt, likeButton, likeCounter) =>
+          handleLikeButtonClick(evt, likeButton, likeCounter, unlikeCard, likeCard), // Передаем функции лайка
         handleCardImageClick,
         cardData.likes.length
       );
 
       newCardElement.dataset.cardId = cardData._id;
+
       deleteCard(
         newCardElement,
         deleteCardRequest,
@@ -199,11 +183,11 @@ formAddNewCard.addEventListener("submit", (evt) => {
         closePopup
       );
 
-      placesList.prepend(newCardElement);
+      placesList.prepend(newCardElement); // Добавляем карточку в начало списка
       formAddNewCard.reset();
       closePopup(popupNewCard);
     })
-    .catch((err) => console.error(err))
+    .catch((err) => console.error(`Ошибка добавления карточки: ${err}`))
     .finally(() => renderLoading(false, btnClosePoputNewCard));
 });
 
@@ -215,24 +199,24 @@ Promise.all([getUserName(), getInitialCards()])
       const cardElement = createCard(
         item.name,
         item.link,
-        handleLikeButtonClick,
+        (evt, likeButton, likeCounter) =>
+          handleLikeButtonClick(evt, likeButton, likeCounter, unlikeCard, likeCard),
         handleCardImageClick,
         item.likes.length
       );
-
+    
       cardElement.dataset.cardId = item._id;
-
+    
       if (userData._id !== item.owner._id)
-        cardElement.querySelector(".card__delete-button").style.display =
-          "none";
+        cardElement.querySelector(".card__delete-button").style.display = "none";
       else
         deleteCard(cardElement, deleteCardRequest, item, openPopup, closePopup);
-
+    
       if (item.likes.some((like) => like._id === userData._id))
         cardElement
           .querySelector(".card__like-button")
           .classList.add("card__like-button_is-active");
-
+    
       placesList.append(cardElement);
     });
   })

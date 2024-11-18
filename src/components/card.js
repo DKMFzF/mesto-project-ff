@@ -28,6 +28,7 @@ export const createCard = (
   return cardElement;
 };
 
+
 export const deleteCard = (
   cardElement,
   deleteRequest,
@@ -59,4 +60,24 @@ export const deleteCard = (
   });
 
   closePopupButton.addEventListener("click", () => closePopup(popupDeleteCard));
+};
+
+export const handleLikeButtonClick = (evt, likeButton, likeCounter, unlikeCard, likeCard) => {
+  const isLiked = likeButton.classList.contains("card__like-button_is-active");
+  const cardElement = evt.target.closest(".places__item.card");
+  const cardId = cardElement.dataset.cardId;
+
+  if (!cardElement || !cardElement.dataset.cardId) {
+    console.error("Ошибка: ID карточки не найден.");
+    return;
+  }
+
+  const apiRequest = isLiked ? unlikeCard : likeCard;
+
+  apiRequest(cardId)
+    .then((updatedCard) => {
+      likeCounter.textContent = updatedCard.likes.length;
+      likeButton.classList.toggle("card__like-button_is-active");
+    })
+    .catch((err) => console.error(`Ошибка обновления лайка: ${err}`));
 };
