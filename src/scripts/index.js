@@ -135,14 +135,6 @@ btnClosePoput.forEach((btnClose) => {
   });
 });
 
-btnClosePoputAvatar.addEventListener('click', () => {
-  formEditAvatar.reset();
-});
-
-btnClosePoputNewCard.addEventListener('click', () => {
-  formAddNewCard.reset();
-});
-
 /*
  * Installing closing handlers by clicking on the
  * overlay for each popup separately
