@@ -206,7 +206,10 @@ formAddNewCard.addEventListener("submit", (evt) => {
 // Load user and cards with Promise.all
 Promise.all([getUserName(), getInitialCards()])
   .then(([userData, cards]) => {
+    // init profile
     loadProfElements(userData);
+
+    // init card
     cards.forEach((item) => {
       const cardElement = createCard(
         item.name,
@@ -217,12 +220,14 @@ Promise.all([getUserName(), getInitialCards()])
       );
     
       cardElement.dataset.cardId = item._id;
-    
+      
+      // display delete btn
       if (userData._id !== item.owner._id)
         cardElement.querySelector(".card__delete-button").style.display = "none";
       else
         deleteCard(cardElement, deleteCardRequest, item, openPopup, closePopup);
-    
+
+      // likes count
       if (item.likes.some((like) => like._id === userData._id))
         cardElement
           .querySelector(".card__like-button")

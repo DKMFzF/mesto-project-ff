@@ -42,26 +42,12 @@ export const deleteCard = (
   const popupDeleteCard = document.querySelector(".popup_type_dalete-card");
   const formDeleteCard = popupDeleteCard.querySelector(".popup__form");
   const closePopupButton = popupDeleteCard.querySelector(".popup__close");
-
-  btnDeleteCard.addEventListener("click", () => {
-    openPopup(popupDeleteCard);
-
-    formDeleteCard.addEventListener(
-      "submit",
-      (evt) => {
-        evt.preventDefault();
-        deleteRequest(item)
-          .then(() => {
-            cardElement.remove();
-            closePopup(popupDeleteCard);
-          })
-          .catch((err) => console.error(`Ошибка удаления карточки: ${err}`));
-      },
-      { once: true }
-    );
+  btnDeleteCard.addEventListener('click', () => {
+    deleteRequest(item)
+    .then(() => {
+      cardElement.remove();
+    });
   });
-
-  closePopupButton.addEventListener("click", () => closePopup(popupDeleteCard));
 };
 
 export const handleLikeButtonClick = (evt, likeButton, likeCounter, unlikeCard, likeCard) => {
