@@ -86,6 +86,17 @@ const renderLoading = (isLoading, btnClose) => {
   }
 };
 
+// обрамление фукнции лайка карточки
+const framingFunLike = (evt, likeButton, likeCounter) => {
+  handleLikeButtonClick(
+    evt, 
+    likeButton, 
+    likeCounter, 
+    unlikeCard, 
+    likeCard
+  )
+}
+
 // valid forms
 enableValidation(validationConfig);
 
@@ -106,7 +117,7 @@ btnEdit.addEventListener("click", () => {
 
 // Opening a popup to add a new card with validation reset
 btnNewCard.addEventListener("click", () => {
-  formAddNewCard.reset(); // сборс полей формы
+  formAddNewCard.reset(); // Сбрасываем поля формы
   clearValidation(formAddNewCard, validationConfig);
   openPopup(popupNewCard);
 });
@@ -169,8 +180,7 @@ formAddNewCard.addEventListener("submit", (evt) => {
       const newCardElement = createCard(
         cardData.name,
         cardData.link,
-        (evt, likeButton, likeCounter) =>
-          handleLikeButtonClick(evt, likeButton, likeCounter, unlikeCard, likeCard), // Передаем функции лайка
+        framingFunLike, // Передаем функции лайка
         handleCardImageClick,
         cardData.likes.length
       );
@@ -201,8 +211,7 @@ Promise.all([getUserName(), getInitialCards()])
       const cardElement = createCard(
         item.name,
         item.link,
-        (evt, likeButton, likeCounter) =>
-          handleLikeButtonClick(evt, likeButton, likeCounter, unlikeCard, likeCard),
+        framingFunLike,
         handleCardImageClick,
         item.likes.length
       );
