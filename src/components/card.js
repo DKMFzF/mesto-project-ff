@@ -1,5 +1,3 @@
-// TODO: исправить ошибки Ревьюера 
-
 export const createCard = (
   nameCard,
   imgSrc,
