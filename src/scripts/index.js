@@ -43,6 +43,8 @@ const popupEdit = document.querySelector(".popup_type_edit");
 const popupImage = document.querySelector(".popup_type_image");
 const popupImageElement = popupImage.querySelector(".popup__image");
 const popupDeleteCard = document.querySelector('.popup_type_dalete-card');
+// const btnsClosesCard = document.querySelectorAll('.card__delete-button');
+const popupDeleteCardBtn = popupDeleteCard.querySelector('#card-btn-delete'); 
 const popupCaption = popupImage.querySelector(".popup__caption");
 const nameInput = formEditProfile.querySelector(".popup__input_type_name");
 const jobInput = formEditProfile.querySelector(
@@ -75,6 +77,12 @@ const handleCardImageClick = (cardImg, cardTitle) => {
 const handleCardDeleteClick = () => {
   openPopup(popupDeleteCard);
 }
+
+// Слушатель на нажатие кнопки удаления карточки
+popupDeleteCardBtn.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  console.log('Нажатие произошло!');
+});
 
 // load info profile
 const loadProfElements = (data) => {
@@ -144,6 +152,7 @@ setClosePopupOnOverlayClick(popupAvatarEdit);
 setClosePopupOnOverlayClick(popupEdit);
 setClosePopupOnOverlayClick(popupNewCard);
 setClosePopupOnOverlayClick(popupImage);
+setClosePopupOnOverlayClick(popupDeleteCard);
 
 // Sending a avatar editing
 formEditAvatar.addEventListener("submit", (evt) => {

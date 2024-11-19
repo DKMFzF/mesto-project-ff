@@ -33,7 +33,7 @@ export const createCard = (
 
   // delete popup
   cardDeleteBtn.addEventListener('click', () => {
-    handlerDeleteCard(cardElement);
+    handlerDeleteCard();
   });
 
   return cardElement;
@@ -63,7 +63,13 @@ export const deleteCard = (
 //   deleteRequest
 // }
 
-export const handleLikeButtonClick = (evt, likeButton, likeCounter, unlikeCard, likeCard) => {
+export const handleLikeButtonClick = (
+  evt, 
+  likeButton, 
+  likeCounter, 
+  unlikeCard, 
+  likeCard
+) => {
   const isLiked = likeButton.classList.contains("card__like-button_is-active");
   const cardElement = evt.target.closest(".places__item.card");
   const cardId = cardElement.dataset.cardId;
