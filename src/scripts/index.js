@@ -8,10 +8,7 @@ import {
   unlikeCard,
   avatarEdit,
 } from "../components/api.js";
-import { 
-  createCard, 
-  handleLikeButtonClick
-} from "../components/card.js";
+import { createCard, handleLikeButtonClick } from "../components/card.js";
 import {
   openPopup,
   closePopup,
@@ -42,7 +39,7 @@ const popupNewCard = document.querySelector(".popup_type_new-card");
 const popupEdit = document.querySelector(".popup_type_edit");
 const popupImage = document.querySelector(".popup_type_image");
 const popupImageElement = popupImage.querySelector(".popup__image");
-const popupDeleteCard = document.querySelector('.popup_type_dalete-card');
+const popupDeleteCard = document.querySelector(".popup_type_dalete-card");
 const popupCaption = popupImage.querySelector(".popup__caption");
 const nameInput = formEditProfile.querySelector(".popup__input_type_name");
 const jobInput = formEditProfile.querySelector(
@@ -71,7 +68,7 @@ const handleCardImageClick = (cardImg, cardTitle) => {
   openPopup(popupImage);
 };
 
-// delete-cards-popup wrapper 
+// delete-cards-popup wrapper
 function wrapperhandleCardDeleteClick() {
   handleCardDeleteClick(cardElement, item);
 }
@@ -79,8 +76,9 @@ function wrapperhandleCardDeleteClick() {
 // delete-cards-popup open
 const handleCardDeleteClick = (cardElement, item) => {
   openPopup(popupDeleteCard);
-  popupDeleteCardForm.onsubmit = (evt) => submitDeleteCardTEST(evt, cardElement, item);
-}
+  popupDeleteCardForm.onsubmit = (evt) =>
+    submitDeleteCardTEST(evt, cardElement, item);
+};
 
 // delete-cards-popup submit
 function submitDeleteCardTEST(evt, cardElement, item) {
@@ -90,8 +88,8 @@ function submitDeleteCardTEST(evt, cardElement, item) {
       cardElement.remove();
       closePopup(popupDeleteCard);
     })
-    .catch(err => console.log(err))
-} 
+    .catch((err) => console.log(err));
+}
 
 // load info profile
 const loadProfElements = (data) => {
@@ -111,14 +109,8 @@ const renderLoading = (isLoading, btnClose) => {
 
 // обрамление фукнции лайка карточки
 const framingFunLike = (evt, likeButton, likeCounter) => {
-  handleLikeButtonClick(
-    evt, 
-    likeButton, 
-    likeCounter, 
-    unlikeCard, 
-    likeCard
-  )
-}
+  handleLikeButtonClick(evt, likeButton, likeCounter, unlikeCard, likeCard);
+};
 
 // valid forms
 enableValidation(validationConfig);
@@ -207,7 +199,7 @@ formAddNewCard.addEventListener("submit", (evt) => {
         framingFunLike, // Передаем функции лайка
         handleCardImageClick,
         () => {
-          handleCardDeleteClick(newCardElement, cardData)
+          handleCardDeleteClick(newCardElement, cardData);
         },
         cardData.likes.length
       );
@@ -236,23 +228,24 @@ Promise.all([getUserName(), getInitialCards()])
         framingFunLike,
         handleCardImageClick,
         () => {
-          handleCardDeleteClick(cardElement, item)
+          handleCardDeleteClick(cardElement, item);
         },
         item.likes.length
       );
-      
+
       cardElement.dataset.cardId = item._id;
 
       // display delete btn
       if (userData._id !== item.owner._id)
-        cardElement.querySelector(".card__delete-button").style.display = "none";
+        cardElement.querySelector(".card__delete-button").style.display =
+          "none";
 
       // likes count
       if (item.likes.some((like) => like._id === userData._id))
         cardElement
           .querySelector(".card__like-button")
           .classList.add("card__like-button_is-active");
-    
+
       placesList.append(cardElement);
     });
   })

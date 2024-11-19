@@ -14,7 +14,7 @@ export const createCard = (
   const likeButton = cardElement.querySelector(".card__like-button");
   const likeCounter = cardElement.querySelector(".card__quantity-like");
   const cardTitle = cardElement.querySelector(".card__title");
-  const cardDeleteBtn = cardElement.querySelector('.card__delete-button');
+  const cardDeleteBtn = cardElement.querySelector(".card__delete-button");
 
   cardImg.src = imgSrc;
   cardImg.alt = nameCard;
@@ -30,7 +30,7 @@ export const createCard = (
   cardImg.addEventListener("click", () => handleImageClick(cardImg, cardTitle));
 
   // delete popup
-  cardDeleteBtn.addEventListener('click', () => {
+  cardDeleteBtn.addEventListener("click", () => {
     handlerDeleteCard();
   });
 
@@ -38,10 +38,10 @@ export const createCard = (
 };
 
 export const handleLikeButtonClick = (
-  evt, 
-  likeButton, 
-  likeCounter, 
-  unlikeCard, 
+  evt,
+  likeButton,
+  likeCounter,
+  unlikeCard,
   likeCard
 ) => {
   const isLiked = likeButton.classList.contains("card__like-button_is-active");

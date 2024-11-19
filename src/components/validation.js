@@ -29,7 +29,7 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
   if (hasInvalidInput(inputList)) {
-    handlerStatusBtn(buttonElement, inactiveButtonClass) // теперь код не повторяется
+    handlerStatusBtn(buttonElement, inactiveButtonClass); // теперь код не повторяется
   } else {
     buttonElement.disabled = false;
     buttonElement.classList.remove(inactiveButtonClass);
@@ -110,6 +110,6 @@ const clearValidation = (formElement, config) => {
 const handlerStatusBtn = (buttonElement, inactiveButtonClass) => {
   buttonElement.disabled = true;
   buttonElement.classList.add(inactiveButtonClass);
-}
+};
 
 export { enableValidation, clearValidation };

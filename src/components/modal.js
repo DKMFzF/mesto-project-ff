@@ -4,7 +4,7 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-  // Убрал ресеты полей в index.js 
+  // Убрал ресеты полей в index.js
   popup.classList.remove("popup_is-opened");
   document.removeEventListener("keydown", handleEscClose);
 }
