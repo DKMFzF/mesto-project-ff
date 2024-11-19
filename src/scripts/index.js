@@ -10,7 +10,6 @@ import {
 } from "../components/api.js";
 import { 
   createCard, 
-  deleteCard, 
   handleLikeButtonClick
 } from "../components/card.js";
 import {
@@ -37,14 +36,13 @@ const profileImg = document.querySelector(".profile__image");
 const formEditAvatar = document.forms.editProfileAvatar;
 const formEditProfile = document.forms.editProfile;
 const formAddNewCard = document.forms.newPlace;
+const popupDeleteCardForm = document.forms.deleteCard;
 const popupAvatarEdit = document.querySelector(".popup_type_avatar");
 const popupNewCard = document.querySelector(".popup_type_new-card");
 const popupEdit = document.querySelector(".popup_type_edit");
 const popupImage = document.querySelector(".popup_type_image");
 const popupImageElement = popupImage.querySelector(".popup__image");
 const popupDeleteCard = document.querySelector('.popup_type_dalete-card');
-// const btnsClosesCard = document.querySelectorAll('.card__delete-button');
-const popupDeleteCardBtn = popupDeleteCard.querySelector('#card-btn-delete'); 
 const popupCaption = popupImage.querySelector(".popup__caption");
 const nameInput = formEditProfile.querySelector(".popup__input_type_name");
 const jobInput = formEditProfile.querySelector(
@@ -73,16 +71,27 @@ const handleCardImageClick = (cardImg, cardTitle) => {
   openPopup(popupImage);
 };
 
-// delete-cards-popup
-const handleCardDeleteClick = () => {
-  openPopup(popupDeleteCard);
+// delete-cards-popup wrapper 
+function wrapperhandleCardDeleteClick() {
+  handleCardDeleteClick(cardElement, item);
 }
 
-// Слушатель на нажатие кнопки удаления карточки
-popupDeleteCardBtn.addEventListener('click', (evt) => {
+// delete-cards-popup open
+const handleCardDeleteClick = (cardElement, item) => {
+  openPopup(popupDeleteCard);
+  popupDeleteCardForm.onsubmit = (evt) => submitDeleteCardTEST(evt, cardElement, item);
+}
+
+// delete-cards-popup submit
+function submitDeleteCardTEST(evt, cardElement, item) {
   evt.preventDefault();
-  console.log('Нажатие произошло!');
-});
+  deleteCardRequest(item)
+    .then(() => {
+      cardElement.remove();
+      closePopup(popupDeleteCard);
+    })
+    .catch(err => console.log(err))
+} 
 
 // load info profile
 const loadProfElements = (data) => {
@@ -197,17 +206,13 @@ formAddNewCard.addEventListener("submit", (evt) => {
         cardData.link,
         framingFunLike, // Передаем функции лайка
         handleCardImageClick,
-        handleCardDeleteClick,
+        () => {
+          handleCardDeleteClick(newCardElement, cardData)
+        },
         cardData.likes.length
       );
 
       newCardElement.dataset.cardId = cardData._id;
-
-      deleteCard(
-        newCardElement,
-        deleteCardRequest,
-        cardData,
-      );
 
       placesList.prepend(newCardElement); // Добавляем карточку в начало списка
       formAddNewCard.reset();
@@ -230,17 +235,17 @@ Promise.all([getUserName(), getInitialCards()])
         item.link,
         framingFunLike,
         handleCardImageClick,
-        handleCardDeleteClick,
+        () => {
+          handleCardDeleteClick(cardElement, item)
+        },
         item.likes.length
       );
-    
-      cardElement.dataset.cardId = item._id;
       
+      cardElement.dataset.cardId = item._id;
+
       // display delete btn
       if (userData._id !== item.owner._id)
         cardElement.querySelector(".card__delete-button").style.display = "none";
-      else
-        deleteCard(cardElement, deleteCardRequest, item);
 
       // likes count
       if (item.likes.some((like) => like._id === userData._id))

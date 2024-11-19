@@ -39,30 +39,6 @@ export const createCard = (
   return cardElement;
 };
 
-// FIXME: переделать функцию deleteCard
-export const deleteCard = (
-  cardElement,
-  deleteRequest,
-  item,
-) => {
-  const btnDeleteCard = cardElement.querySelector(".card__delete-button");
-  const popupDeleteCard = document.querySelector(".popup_type_dalete-card");
-  const formDeleteCard = popupDeleteCard.querySelector(".popup__form");
-  const closePopupButton = popupDeleteCard.querySelector(".popup__close");
-  
-  // btnDeleteCard.addEventListener('click', () => {
-  //   openPopup()
-  //   formDeleteCard.onsubmit = (evt) =>{
-  //     // submitDeleteCard(evt, card);
-  //   }
-  // });
-};
-
-// const submitDeleteCard = (evt, card) => {
-//   evt.preventDefault();
-//   deleteRequest
-// }
-
 export const handleLikeButtonClick = (
   evt, 
   likeButton, 
