@@ -42,6 +42,7 @@ const popupNewCard = document.querySelector(".popup_type_new-card");
 const popupEdit = document.querySelector(".popup_type_edit");
 const popupImage = document.querySelector(".popup_type_image");
 const popupImageElement = popupImage.querySelector(".popup__image");
+const popupDeleteCard = document.querySelector('.popup_type_dalete-card');
 const popupCaption = popupImage.querySelector(".popup__caption");
 const nameInput = formEditProfile.querySelector(".popup__input_type_name");
 const jobInput = formEditProfile.querySelector(
@@ -69,6 +70,11 @@ const handleCardImageClick = (cardImg, cardTitle) => {
   popupCaption.textContent = cardTitle.textContent;
   openPopup(popupImage);
 };
+
+// delete-cards-popup
+const handleCardDeleteClick = () => {
+  openPopup(popupDeleteCard);
+}
 
 // load info profile
 const loadProfElements = (data) => {
@@ -182,6 +188,7 @@ formAddNewCard.addEventListener("submit", (evt) => {
         cardData.link,
         framingFunLike, // Передаем функции лайка
         handleCardImageClick,
+        handleCardDeleteClick,
         cardData.likes.length
       );
 
@@ -191,8 +198,6 @@ formAddNewCard.addEventListener("submit", (evt) => {
         newCardElement,
         deleteCardRequest,
         cardData,
-        openPopup,
-        closePopup
       );
 
       placesList.prepend(newCardElement); // Добавляем карточку в начало списка
@@ -216,6 +221,7 @@ Promise.all([getUserName(), getInitialCards()])
         item.link,
         framingFunLike,
         handleCardImageClick,
+        handleCardDeleteClick,
         item.likes.length
       );
     
@@ -225,7 +231,7 @@ Promise.all([getUserName(), getInitialCards()])
       if (userData._id !== item.owner._id)
         cardElement.querySelector(".card__delete-button").style.display = "none";
       else
-        deleteCard(cardElement, deleteCardRequest, item, openPopup, closePopup);
+        deleteCard(cardElement, deleteCardRequest, item);
 
       // likes count
       if (item.likes.some((like) => like._id === userData._id))
