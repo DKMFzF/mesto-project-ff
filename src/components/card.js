@@ -1,3 +1,5 @@
+// TODO: исправить ошибки Ревьюера 
+
 export const createCard = (
   nameCard,
   imgSrc,
@@ -28,7 +30,7 @@ export const createCard = (
   return cardElement;
 };
 
-
+// FIXME: переделать функцию deleteCard
 export const deleteCard = (
   cardElement,
   deleteRequest,

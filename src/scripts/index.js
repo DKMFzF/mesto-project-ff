@@ -106,7 +106,7 @@ btnEdit.addEventListener("click", () => {
 
 // Opening a popup to add a new card with validation reset
 btnNewCard.addEventListener("click", () => {
-  formAddNewCard.reset(); // Сбрасываем поля формы
+  formAddNewCard.reset(); // сборс полей формы
   clearValidation(formAddNewCard, validationConfig);
   openPopup(popupNewCard);
 });
