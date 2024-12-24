@@ -35,11 +35,6 @@ And repeat
 ```
 npm run dev
 ```
-
-## Author
-
-** [Kirill Doroshev (DKMFzF)](https://vk.com/dkmfzf ) **
-
 ## License
 
 This project is licensed under the MIT license
